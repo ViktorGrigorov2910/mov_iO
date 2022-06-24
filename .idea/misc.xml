@@ -5,11 +5,15 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.17755825734549138" />
         <entry key="app/src/main/res/layout/activity_fragment_data.xml" value="0.3390625" />
-        <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.25815217391304346" />
+        <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.24459016219429341" />
         <entry key="app/src/main/res/layout/activity_transfer_data.xml" value="0.3390625" />
         <entry key="app/src/main/res/layout/fragment_a.xml" value="0.3462982177734375" />
         <entry key="app/src/main/res/layout/fragment_b.xml" value="0.325" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_movie_detail.xml" value="0.24733581542968752" />
+        <entry key="app/src/main/res/layout/fragment_movie_list.xml" value="0.22809906005859373" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/movie_in_list.xml" value="0.31717681884765625" />
         <entry key="app/src/main/res/layout/movie_info.xml" value="0.3380208333333333" />
       </map>
     </option>
