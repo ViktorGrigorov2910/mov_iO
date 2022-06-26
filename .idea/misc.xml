@@ -4,6 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.17755825734549138" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/activity_home_screen.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/fragment_detail.xml" value="0.33" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/fragment_main.xml" value="0.2" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/fragment_movie_detail.xml" value="0.22" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/fragment_movie_list.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/movie_item.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Viktor/mov_iO/app/src/main/res/layout/movie_row.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_fragment_data.xml" value="0.3390625" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.24459016219429341" />
         <entry key="app/src/main/res/layout/activity_transfer_data.xml" value="0.3390625" />
