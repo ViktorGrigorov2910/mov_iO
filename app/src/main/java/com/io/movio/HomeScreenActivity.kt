@@ -7,17 +7,10 @@ import com.io.movio.fragments.MovieListFragment
 
 class HomeScreenActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_screen)
 
-        val fragment = MovieListFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.movie_list_container, fragment).commit()
-
-
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MovieListFragment()).commit()
     }
-
-
 }

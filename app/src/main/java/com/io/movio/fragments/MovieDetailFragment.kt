@@ -7,36 +7,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.io.movio.databinding.FragmentMovieDetailBinding
+import com.io.movio.models.Movie
 
 // the fragment initialization parameters
-private const val ARG_PARAM1 = "title"
-private const val ARG_PARAM2 = "description"
-private const val ARG_PARAM3 = "cast"
-
-
+private const val ARG_TITLE = "title"
+private const val ARG_DESCRIPTION = "description"
+private const val ARG_CAST = "cast"
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
-
-    private var title: String? = null
-    private var description: String? = null
-    private var cast: String? = null
-
+    private lateinit var title: String
+    private lateinit var description: String
+    private lateinit var cast: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString(ARG_PARAM1)
-            description = it.getString(ARG_PARAM2)
-            cast = it.getString(ARG_PARAM3)
-
+            title = it.getString(ARG_TITLE).toString()
+            description = it.getString(ARG_DESCRIPTION).toString()
+            cast = it.getString(ARG_CAST).toString()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
 
         binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
 
@@ -54,12 +49,12 @@ class MovieDetailFragment : Fragment() {
          * this fragment using the provided parameters.
          */
         @JvmStatic
-        fun newInstance(title: String, description: String , cast:String) =
+        fun newInstance(title:String , description:String , cast:String) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, title)
-                    putString(ARG_PARAM2, description)
-                    putString(ARG_PARAM3, cast)
+                    putString(ARG_TITLE, title)
+                    putString(ARG_DESCRIPTION, description)
+                    putString(ARG_CAST, cast)
                 }
             }
     }

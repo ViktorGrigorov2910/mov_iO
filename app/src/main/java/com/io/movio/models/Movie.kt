@@ -6,6 +6,4 @@ data class Movie(
     val releaseDate: String,
     val genre: String ,
     val cast: String
-) {
-
-}
+)
