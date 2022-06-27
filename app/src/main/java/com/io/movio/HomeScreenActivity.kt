@@ -2,8 +2,7 @@ package com.io.movio
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.io.movio.fragments.MainFragment
-import com.io.movio.models.MovieDTO
+import com.io.movio.fragments.MovieListFragment
 
 
 class HomeScreenActivity : AppCompatActivity() {
@@ -14,8 +13,8 @@ class HomeScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_screen)
 
-        val fragment = MainFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
+        val fragment = MovieListFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.movie_list_container, fragment).commit()
 
 
     }
