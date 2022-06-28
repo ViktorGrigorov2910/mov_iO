@@ -34,7 +34,6 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     }
 
     private fun initRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = MoviesAdapter(createMovieArray(), this)
     }
 
