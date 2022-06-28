@@ -10,35 +10,34 @@ import com.io.movio.databinding.FragmentMovieDetailBinding
 import com.io.movio.models.Movie
 
 // the fragment initialization parameters
-private const val ARG_TITLE = "title"
-private const val ARG_DESCRIPTION = "description"
-private const val ARG_CAST = "cast"
+private const val ARG_MOVIE = "movie"
+
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
-    private lateinit var title: String
-    private lateinit var description: String
-    private lateinit var cast: String
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString(ARG_TITLE).toString()
-            description = it.getString(ARG_DESCRIPTION).toString()
-            cast = it.getString(ARG_CAST).toString()
+            movie = it.getSerializable(ARG_MOVIE) as Movie
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            binding.tvTitle.text = movie.title
+            binding.tvCast.text = movie.cast
+            binding.tvDescription.text = movie.description
+            binding.tvDescription.movementMethod = ScrollingMovementMethod()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-
-        binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-
-        binding.tvTitle.text = title
-        binding.tvCast.text = cast
-        binding.tvDescription.text = description
-        binding.tvDescription.movementMethod = ScrollingMovementMethod()
+        binding = FragmentMovieDetailBinding.inflate(inflater , container , false)
 
         return binding.root
     }
@@ -49,12 +48,10 @@ class MovieDetailFragment : Fragment() {
          * this fragment using the provided parameters.
          */
         @JvmStatic
-        fun newInstance(title:String , description:String , cast:String) =
+        fun newInstance(movie: Movie) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_TITLE, title)
-                    putString(ARG_DESCRIPTION, description)
-                    putString(ARG_CAST, cast)
+                    putSerializable("movie" , movie)
                 }
             }
     }

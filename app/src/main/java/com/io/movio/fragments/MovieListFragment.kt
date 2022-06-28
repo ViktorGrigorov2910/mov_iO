@@ -15,8 +15,7 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
     private lateinit var binding: FragmentMovieListBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMovieListBinding.inflate(inflater)
 
         createMovieArray()
@@ -25,12 +24,9 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         return binding.root
     }
 
-
     override fun onItemClick(movie: Movie) {
-        val fragment = MovieDetailFragment.newInstance(movie.title , movie.description , movie.cast)
-
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, MovieDetailFragment.newInstance(movie))
             .addToBackStack(null)
             .commit()
     }
