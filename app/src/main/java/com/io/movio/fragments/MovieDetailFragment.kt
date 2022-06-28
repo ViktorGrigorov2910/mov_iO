@@ -17,28 +17,26 @@ class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
     private lateinit var movie: Movie
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            movie = it.getSerializable(ARG_MOVIE) as Movie
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            binding.tvTitle.text = movie.title
-            binding.tvCast.text = movie.cast
-            binding.tvDescription.text = movie.description
-            binding.tvDescription.movementMethod = ScrollingMovementMethod()
+            tvTitle.text = movie.title
+            tvCast.text = movie.cast
+            tvDescription.text = movie.description
+            tvDescription.movementMethod = ScrollingMovementMethod()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
+
         binding = FragmentMovieDetailBinding.inflate(inflater , container , false)
 
+        arguments?.let {
+            movie = it.getSerializable(ARG_MOVIE) as Movie
+        }
         return binding.root
     }
 
@@ -47,7 +45,6 @@ class MovieDetailFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          */
-        @JvmStatic
         fun newInstance(movie: Movie) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {

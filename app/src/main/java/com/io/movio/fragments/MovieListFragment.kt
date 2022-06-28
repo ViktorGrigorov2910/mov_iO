@@ -17,17 +17,19 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMovieListBinding.inflate(inflater)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         createMovieArray()
         initRecyclerView()
-
-        return binding.root
     }
 
     override fun onItemClick(movie: Movie) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, MovieDetailFragment.newInstance(movie))
-            .addToBackStack(null)
+            .addToBackStack(javaClass::class.java.name)
             .commit()
     }
 
