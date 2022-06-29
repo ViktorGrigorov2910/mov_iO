@@ -6,6 +6,6 @@ data class Movie(
     val title: String,
     val description: String,
     val releaseDate: String,
-    val genre: String ,
+    val genre: String,
     val cast: String
 ):Serializable
