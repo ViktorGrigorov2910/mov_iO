@@ -22,9 +22,9 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //ViewModel must be here
-        viewModel.getMovieList().observe(this , Observer {
+        viewModel.getMovieList().observe(this) {
             adapter.update(it)
-        })
+        }
     }
 
     override fun onCreateView(
@@ -38,7 +38,6 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovieList()
         binding.recyclerView.adapter = adapter
     }
 
