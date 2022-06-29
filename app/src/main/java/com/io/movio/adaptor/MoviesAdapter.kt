@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.io.movio.databinding.MovieRowBinding
 import com.io.movio.models.Movie
 
-class MoviesAdapter(private val movies: Array<Movie>,
-                    private val listener: ItemOnClickListener)
+class MoviesAdapter(private val listener: ItemOnClickListener)
     : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
+    private val movies = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder
     = MovieViewHolder(MovieRowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -25,6 +25,12 @@ class MoviesAdapter(private val movies: Array<Movie>,
                 listener.onItemClick(movies[position])
             }
         }
+    }
+
+    fun update(newMovies: List<Movie>) {
+        movies.clear()
+        movies.addAll(newMovies)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int  =  movies.size
