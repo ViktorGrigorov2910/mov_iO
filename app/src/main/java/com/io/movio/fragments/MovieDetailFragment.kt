@@ -27,7 +27,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateMovieDetail((requireArguments().getSerializable(ARG_MOVIE) as Movie))
+        updateMovieDetail((requireArguments().getParcelable<Movie>(ARG_MOVIE) as Movie))
     }
 
     private fun updateMovieDetail(movie: Movie) {
@@ -47,7 +47,7 @@ class MovieDetailFragment : Fragment() {
         fun newInstance(movie: Movie) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable("movie", movie)
+                    putParcelable(ARG_MOVIE, movie)
                 }
             }
     }
