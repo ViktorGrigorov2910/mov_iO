@@ -19,19 +19,11 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     private val viewModel: MovieListViewModel by lazy {  ViewModelProvider(this@MovieListFragment)[MovieListViewModel::class.java] }
     private var adapter = MoviesAdapter(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //ViewModel must be here
-        viewModel.getMovieList().observe(this) {
-            adapter.update(it)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
+
         binding = FragmentMovieListBinding.inflate(inflater)
         return binding.root
     }
@@ -39,6 +31,10 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
+
+        viewModel.movieList.observe(viewLifecycleOwner) {
+            adapter.update(it)
+        }
     }
 
     override fun onItemClick(movie: Movie) {

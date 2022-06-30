@@ -4,23 +4,7 @@ package com.io.movio.repositories
 import com.io.movio.models.Movie
 
 object MovieRepository {
-    private var instance: MovieRepository? = null
-
-    init {
-        getInstance()
-    }
-
-    private fun getInstance():MovieRepository? {
-        if (instance == null) {
-          instance = MovieRepository
-            return instance
-        }
-      return instance
-    }
-
-    fun getMovies(): List<Movie> {
-        return createMovieList()
-    }
+    fun getMovies(): List<Movie>  = createMovieList()
 
     private fun createMovieList() = listOf(
         Movie(

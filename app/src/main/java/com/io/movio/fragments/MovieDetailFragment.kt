@@ -14,22 +14,20 @@ import com.io.movio.viewmodels.MovieDetailViewModel
 // the fragment initialization parameters
 private const val ARG_MOVIE = "movie"
 
-
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
-    private lateinit var movie: Movie
     private val viewModel: MovieDetailViewModel by lazy { ViewModelProvider(this@MovieDetailFragment)[MovieDetailViewModel::class.java] }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = FragmentMovieDetailBinding.inflate(inflater, container, false).also {
+        binding = it
+    }.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            movie = it.getSerializable(ARG_MOVIE) as Movie
-        }
-
-        viewModel.getMovieClicked(movie).observe(this){
-            updateMovieDetail(it)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        updateMovieDetail((requireArguments().getSerializable(ARG_MOVIE) as Movie))
     }
 
     private fun updateMovieDetail(movie: Movie) {
@@ -38,30 +36,8 @@ class MovieDetailFragment : Fragment() {
             tvCast.text = movie.cast
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
-
         }
     }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.apply {
-//            tvTitle.text = movie.title
-//            tvCast.text = movie.cast
-//            tvDescription.text = movie.description
-//            tvDescription.movementMethod = ScrollingMovementMethod()
-//        }
-//    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
-
 
     companion object {
         /**
