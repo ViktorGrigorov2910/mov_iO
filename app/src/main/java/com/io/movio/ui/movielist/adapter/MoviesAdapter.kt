@@ -1,10 +1,10 @@
-package com.io.movio.adaptor
+package com.io.movio.ui.movielist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.io.movio.databinding.MovieRowBinding
-import com.io.movio.models.Movie
+import com.io.movio.data.models.Movie
 
 class MoviesAdapter(private val listener: ItemOnClickListener)
     : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
@@ -22,7 +22,7 @@ class MoviesAdapter(private val listener: ItemOnClickListener)
             binding.tvReleaseDate.text = movies[position].releaseDate
 
             itemView.setOnClickListener {
-                listener.onItemClick(movies[position])
+                listener.onItemClick(position)
             }
         }
     }
@@ -38,7 +38,7 @@ class MoviesAdapter(private val listener: ItemOnClickListener)
     class MovieViewHolder(val binding: MovieRowBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface ItemOnClickListener {
-        fun onItemClick(movie: Movie)
+        fun onItemClick(id: Int)
     }
 
 }

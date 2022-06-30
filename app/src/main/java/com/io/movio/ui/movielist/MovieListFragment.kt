@@ -1,17 +1,15 @@
-package com.io.movio.fragments
+package com.io.movio.ui.movielist
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.io.movio.R
-import com.io.movio.adaptor.MoviesAdapter
+import com.io.movio.ui.movielist.adapter.MoviesAdapter
 import com.io.movio.databinding.FragmentMovieListBinding
-import com.io.movio.models.Movie
-import com.io.movio.viewmodels.MovieListViewModel
+import com.io.movio.ui.moviedetail.MovieDetailFragment
 
 class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
@@ -37,9 +35,9 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         }
     }
 
-    override fun onItemClick(movie: Movie) {
+    override fun onItemClick(id: Int) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MovieDetailFragment.newInstance(movie))
+            .replace(R.id.fragment_container, MovieDetailFragment.newInstance(id))
             .addToBackStack(javaClass::class.java.name)
             .commit()
     }

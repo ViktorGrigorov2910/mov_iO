@@ -1,4 +1,4 @@
-package com.io.movio.fragments
+package com.io.movio.ui.moviedetail
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.io.movio.databinding.FragmentMovieDetailBinding
-import com.io.movio.models.Movie
-import com.io.movio.viewmodels.MovieDetailViewModel
+import com.io.movio.data.models.Movie
 
 // the fragment initialization parameters
-private const val ARG_MOVIE = "movie"
+private const val ARG_MOVIE_ID = "movie_id"
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
@@ -27,7 +26,10 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateMovieDetail((requireArguments().getParcelable<Movie>(ARG_MOVIE) as Movie))
+        viewModel.getMovie(requireArguments().getInt(ARG_MOVIE_ID))
+        viewModel.movie.observe(viewLifecycleOwner) {
+            updateMovieDetail(it)
+        }
     }
 
     private fun updateMovieDetail(movie: Movie) {
@@ -44,10 +46,10 @@ class MovieDetailFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          */
-        fun newInstance(movie: Movie) =
+        fun newInstance(id: Int) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(ARG_MOVIE, movie)
+                    putInt(ARG_MOVIE_ID, id)
                 }
             }
     }
