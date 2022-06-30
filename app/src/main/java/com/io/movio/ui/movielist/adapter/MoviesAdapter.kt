@@ -22,7 +22,7 @@ class MoviesAdapter(private val listener: ItemOnClickListener)
             binding.tvReleaseDate.text = movies[position].releaseDate
 
             itemView.setOnClickListener {
-                listener.onItemClick(position)
+                listener.onItemClick(movies[position].id)
             }
         }
     }

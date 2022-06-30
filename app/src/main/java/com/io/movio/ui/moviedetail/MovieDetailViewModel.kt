@@ -12,6 +12,6 @@ class MovieDetailViewModel : ViewModel() {
     val movie: LiveData<Movie> = _movie
 
     fun getMovie(id: Int){
-   _movie.value  =GetMovieByIdUseCase(MovieRepository).getMovieById(id)
+   _movie.value = GetMovieByIdUseCase(MovieRepository)(id)!!
     }
 }

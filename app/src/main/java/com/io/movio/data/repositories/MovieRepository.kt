@@ -6,7 +6,7 @@ object MovieRepository {
     fun getMovies(): List<Movie>  = createMovieList()
 
     private fun createMovieList() = listOf(
-        Movie( 1,
+        Movie( 112,
             "Movie1",
             "dasdasdasdasdasddasdasdasdasd",
             "12/02/2001",
@@ -14,14 +14,14 @@ object MovieRepository {
             "John Something, Someone Williams , Phill Phill"
         ),
         Movie(
-            2,
+            223,
             "Movie2",
             "asdasdasd",
             "12/02/2001",
             "Action , Comedy , Sci-Fi, Sci-Fi, Sci-Fi",
             "John Something, Someone Williams , Phill Phill"
         ),
-        Movie(3,
+        Movie(334,
             "Movie3",
             "asdasdasd",
             "02/02/1992",
