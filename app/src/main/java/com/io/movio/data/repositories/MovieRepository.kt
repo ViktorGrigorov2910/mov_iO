@@ -1,9 +1,16 @@
 package com.io.movio.data.repositories
 
 import com.io.movio.data.models.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object MovieRepository {
-    fun getMovies(): List<Movie>  = createMovieList()
+     suspend fun getMovies(): List<Movie>  =
+         withContext(Dispatchers.IO){
+             createMovieList()
+         }
+
+
 
     private fun createMovieList() = listOf(
         Movie( 112,
