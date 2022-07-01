@@ -2,7 +2,7 @@ package com.io.movio
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.io.movio.fragments.MovieListFragment
+import com.io.movio.ui.movielist.MovieListFragment
 
 
 class HomeScreenActivity : AppCompatActivity() {
