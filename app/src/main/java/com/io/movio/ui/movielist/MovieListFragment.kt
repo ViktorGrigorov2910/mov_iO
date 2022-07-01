@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.io.movio.R
+import com.io.movio.data.Result
 import com.io.movio.ui.movielist.adapter.MoviesAdapter
 import com.io.movio.databinding.FragmentMovieListBinding
 import com.io.movio.ui.moviedetail.MovieDetailFragment
@@ -31,7 +33,10 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         binding.recyclerView.adapter = adapter
 
         viewModel.movieList.observe(viewLifecycleOwner) {
-            adapter.update(it)
+            when(it){
+                is Result.Success -> adapter.update(it.value)
+                is Result.Failure -> Toast.makeText(this.context , "Something went wrong!" , Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

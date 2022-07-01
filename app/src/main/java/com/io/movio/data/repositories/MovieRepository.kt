@@ -10,8 +10,6 @@ object MovieRepository {
              createMovieList()
          }
 
-
-
     private fun createMovieList() = listOf(
         Movie( 112,
             "Movie1",
