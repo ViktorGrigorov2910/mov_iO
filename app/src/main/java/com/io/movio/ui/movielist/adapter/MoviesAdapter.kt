@@ -3,6 +3,7 @@ package com.io.movio.ui.movielist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.io.movio.databinding.MovieRowBinding
 import com.io.movio.data.models.Movie
 
@@ -20,6 +21,10 @@ class MoviesAdapter(private val listener: ItemOnClickListener)
             binding.tvTitle.text = movies[position].title
             binding.tvGenre.text = movies[position].genre
             binding.tvReleaseDate.text = movies[position].releaseDate
+
+            Glide.with(this.binding.root)
+                .load(movies[position].image_url)
+                .into(binding.imageView)
 
             itemView.setOnClickListener {
                 listener.onItemClick(movies[position].id)

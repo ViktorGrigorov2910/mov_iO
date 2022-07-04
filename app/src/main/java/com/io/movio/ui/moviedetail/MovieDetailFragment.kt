@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.io.movio.R
 import com.io.movio.data.Result
 import com.io.movio.databinding.FragmentMovieDetailBinding
@@ -44,6 +45,9 @@ class MovieDetailFragment : Fragment() {
             tvCast.text = movie.cast
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
+            Glide.with(root)
+                .load(movie.image_url)
+                .into(ivPoster)
         }
     }
 
