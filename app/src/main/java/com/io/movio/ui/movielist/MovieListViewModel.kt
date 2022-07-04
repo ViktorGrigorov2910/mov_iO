@@ -3,15 +3,20 @@ package com.io.movio.ui.movielist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.io.movio.data.Result
 import com.io.movio.data.models.Movie
-import com.io.movio.data.repositories.MovieRepository
 import com.io.movio.domain.GetMoviesUseCase
+import kotlinx.coroutines.launch
 
 class MovieListViewModel : ViewModel() {
-    private val _movieList = MutableLiveData<List<Movie>>()
-    val movieList: LiveData<List<Movie>> = _movieList
+    private val _movieList = MutableLiveData<Result<List<Movie>>>()
+    val movieList: LiveData<Result<List<Movie>>> = _movieList
 
     init {
-        _movieList.value = GetMoviesUseCase(MovieRepository).getMovies()
+        viewModelScope.launch {
+            val result = GetMoviesUseCase().execute(Unit)
+            _movieList.value = result
         }
     }
+}
