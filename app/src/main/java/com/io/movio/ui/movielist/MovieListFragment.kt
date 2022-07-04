@@ -35,7 +35,7 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         viewModel.movieList.observe(viewLifecycleOwner) {
             when(it){
                 is Result.Success -> adapter.update(it.value)
-                is Result.Failure -> Toast.makeText(this.context , "Something went wrong!" , Toast.LENGTH_SHORT).show()
+                is Result.Failure -> Toast.makeText(this.context , requireContext().getString(R.string.error_message_toast)  , Toast.LENGTH_SHORT).show()
             }
         }
     }

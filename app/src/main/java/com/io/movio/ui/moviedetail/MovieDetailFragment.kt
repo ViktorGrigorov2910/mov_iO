@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.io.movio.R
 import com.io.movio.data.Result
 import com.io.movio.databinding.FragmentMovieDetailBinding
 import com.io.movio.data.models.Movie
@@ -32,7 +33,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.movie.observe(viewLifecycleOwner) {
             when(it){
                 is Result.Success-> updateMovieDetail(it.value)
-                is Result.Failure -> Toast.makeText(this.context , "Something went wrong!" , Toast.LENGTH_SHORT).show()
+                is Result.Failure -> Toast.makeText(this.context , requireContext().getString(R.string.error_message_toast) , Toast.LENGTH_SHORT).show()
             }
         }
     }

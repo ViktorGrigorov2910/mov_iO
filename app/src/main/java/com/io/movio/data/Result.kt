@@ -1,6 +1,6 @@
 package com.io.movio.data
 
-import java.lang.Exception
+import kotlin.Exception
 
 
 sealed class Result<out T>  {

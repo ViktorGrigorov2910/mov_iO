@@ -3,13 +3,13 @@ package com.io.movio.domain
 import com.io.movio.data.Result
 import com.io.movio.data.models.Movie
 import com.io.movio.data.repositories.MovieRepository
-import java.lang.Exception
+import kotlin.Exception
 
-class GetMoviesUseCase : UseCase<MovieRepository, Result<List<Movie>>> {
+class GetMoviesUseCase(private val movieRepository: MovieRepository = MovieRepository) : UseCase< Unit , Result<List<Movie>>> {
 
-    override suspend fun execute(param: MovieRepository): Result<List<Movie>> {
+    override suspend fun execute(param: Unit): Result<List<Movie>> {
         return try {
-            Result.Success(param.getMovies())
+            Result.Success(movieRepository.getMovies())
         } catch (ex: Exception) {
             Result.Failure(ex)
         }
