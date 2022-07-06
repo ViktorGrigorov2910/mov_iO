@@ -1,80 +1,41 @@
 package com.io.movio.data.repositories
 
 import com.io.movio.data.models.Movie
+import com.io.movio.data.models.resources.MovieDetailResource
+import com.io.movio.data.models.resources.MovieListResource
+import com.io.movio.network.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-object MovieRepository {
-     suspend fun getMovies(): List<Movie>  =
-         withContext(Dispatchers.IO){
-             createMovieList()
-         }
+private const val API_KEY = "8a321dd6371474e930acd74d91c2bd84"
 
-    private fun createMovieList() = listOf(
-        Movie( 112,
-            "Movie1",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "dasdasdasdasdasddasdasdasdasd",
-            "12/02/2001",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        ),
-        Movie(
-            223,
-            "Movie2",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "12/02/2001",
-            "Action , Comedy , Sci-Fi, Sci-Fi, Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        ),
-        Movie(334,
-            "Movie3",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "02/02/1992",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        ),
-        Movie( 4,
-            "Movie4",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "24/11/2012",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        ),
-        Movie(5,
-            "Movie5",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "22/12/1898",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill, Someone Williams , Phill Phill"
-        ),
-        Movie(6,
-            "Movie6",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "17/02/2012",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        ),
-        Movie(7,
-            "Movie7",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "12/06/2008",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill, Someone Williams , Phill Phill, Someone Williams , Phill Phill"
-        ),
-        Movie(8,
-            "Movie8",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxT4IHK0yp3vvOAHfnjdiGKEzc7SD2yHorA&usqp=CAU",
-            "asdasdasd",
-            "31/03/2021",
-            "Action , Comedy , Sci-Fi",
-            "John Something, Someone Williams , Phill Phill"
-        )
+object MovieRepository {
+
+    suspend fun getMovies(): List<Movie> =
+        withContext(Dispatchers.IO) {
+            RetrofitInstance.api.getMovies(API_KEY).movieListMapping()
+        }
+
+    suspend fun getMovieById(id: Int): Movie =
+        withContext(Dispatchers.IO) {
+            RetrofitInstance.api.getMovieById(id , API_KEY).movieDetailMapping()
+        }
+}
+
+private fun MovieDetailResource.movieDetailMapping(): Movie {
+    return Movie(
+        id, title, imageUrl, description, releaseDate,
+        null ,popularity, rating
     )
+}
+
+private fun MovieListResource.movieListMapping(): List<Movie> {
+    val movieList = mutableListOf<Movie>()
+    for (i in this.results) {
+        val movie = Movie(
+            i.id, i.title, i.posterPath,
+            i.overview, i.releaseDate, i.genreIds ,i.popularity, i.voteAverage)
+        movieList.add(movie)
+    }
+    return movieList
 }

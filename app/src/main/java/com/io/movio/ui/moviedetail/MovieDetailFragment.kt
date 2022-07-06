@@ -42,11 +42,12 @@ class MovieDetailFragment : Fragment() {
     private fun updateMovieDetail(movie: Movie) {
         binding.apply {
             tvTitle.text = movie.title
-            tvCast.text = movie.cast
+            tvAvgRating.text = movie.rating.toString().plus(" out of 10")
+            tvPopularity.text = movie.popularity.toString()
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
             Glide.with(root)
-                .load(movie.image_url)
+                .load("https://image.tmdb.org/t/p/w500".plus(movie.imageUrl))
                 .into(ivPoster)
         }
     }

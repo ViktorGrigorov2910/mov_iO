@@ -6,4 +6,6 @@
     <string name="released_header">Released on:</string>
     <string name="movie_poster_content_desc">MoviePoster</string>
     <string name="error_message_toast">Something went wrong!</string>
+    <string name="ratings_header">Ratings:</string>
+    <string name="popularity_header">Popularity:</string>
 </resources>
