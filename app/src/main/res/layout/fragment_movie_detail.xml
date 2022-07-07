@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_teal"
     android:padding="16dp"
-    tools:context=".fragments.MovieDetailFragment">
+    tools:context="ui.moviedetail.MovieDetailFragment">
 
     <TextView
         android:id="@+id/tv_title"
@@ -28,38 +28,66 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/movie_poster_content_desc"
         android:paddingHorizontal="10dp"
-        android:src="@drawable/ic_launcher_background"
+        tools:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@id/tv_description_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
-        android:id="@+id/cast_header"
+        android:id="@+id/tv_rating_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="@string/cast_members_header"
+        android:text="@string/ratings_header"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_poster"
         app:layout_constraintTop_toTopOf="@+id/iv_poster" />
 
     <TextView
-        android:id="@+id/tv_cast"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:textAlignment="center"
+        android:id="@+id/tv_avg_rating"
+        tools:text="8.7 out of 10"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_description_header"
-        app:layout_constraintEnd_toEndOf="@+id/cast_header"
-        app:layout_constraintStart_toStartOf="@+id/cast_header"
-        app:layout_constraintTop_toBottomOf="@id/cast_header"
-        tools:text="John Something, John Something, John Something, John Something, John Something, John Something, John Something" />
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_rating_header"
+        app:layout_constraintEnd_toEndOf="@id/tv_rating_header"
+        app:layout_constraintTop_toBottomOf="@id/tv_rating_header"
+        />
+
+    <TextView
+        android:id="@+id/tv_popularity_header"
+        android:text="@string/popularity_header"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/tv_avg_rating"
+        app:layout_constraintEnd_toEndOf="@id/tv_avg_rating"
+        app:layout_constraintTop_toBottomOf="@id/tv_avg_rating"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_popularity"
+        tools:text = "123.123"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_popularity_header"
+        app:layout_constraintEnd_toEndOf="@id/tv_popularity_header"
+        app:layout_constraintTop_toBottomOf="@id/tv_popularity_header"
+        android:layout_marginTop="5dp"
+        />
+
+
 
     <View
         android:id="@+id/center_anchor"
@@ -78,7 +106,7 @@
         android:text="@string/description_header"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_description"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +119,8 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="italic"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

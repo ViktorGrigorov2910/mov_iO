@@ -1,7 +1,6 @@
-package com.io.movio.data
+package com.io.movio.domain
 
 import kotlin.Exception
-
 
 sealed class Result<out T>  {
     data class Success<out T>(val value: T): Result<T>()
