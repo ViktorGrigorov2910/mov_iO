@@ -1,14 +1,14 @@
 package com.io.movio.ui.movielist.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.io.movio.data.enums.Genre
 import com.io.movio.databinding.MovieRowBinding
-import com.io.movio.data.models.Movie
+import com.io.movio.domain.Movie
 
-private const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 class MoviesAdapter(private val listener: ItemOnClickListener) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
@@ -19,18 +19,19 @@ class MoviesAdapter(private val listener: ItemOnClickListener) :
         MovieViewHolder(MovieRowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val movie = movies[position]
 
         holder.apply {
-            binding.tvTitle.text = movies[position].title
-            binding.tvGenre.text = getGenreToString(movies[position].genre!!)
-            binding.tvReleaseDate.text = movies[position].releaseDate
+            binding.tvTitle.text = movie.title
+            binding.tvGenre.text = getGenreToString(movie.genre, binding.root.context)
+            binding.tvReleaseDate.text = movie.releaseDate
 
             Glide.with(this.binding.root)
-                .load(BASE_IMAGE_URL.plus(movies[position].imageUrl))
+                .load(movie.imageUrl)
                 .into(binding.imageView)
 
             itemView.setOnClickListener {
-                listener.onItemClick(movies[position].id)
+                listener.onItemClick(movie.id)
             }
         }
     }
@@ -50,17 +51,13 @@ class MoviesAdapter(private val listener: ItemOnClickListener) :
     }
 
 }
-private fun getGenreToString(genre: List<Int>): String {
-    var genres = ""
-    for (i in genre) {
-        val genreCapital = Genre.getByValue(i).toString()
-        val genreString = nameFormatter(genreCapital)
-        genres = genres.plus(genreString.plus(", "))
-    }
-    return genres.dropLast(2)
+
+private fun getGenreToString(movieGenres: List<Int>, context: Context): String {
+    return StringBuilder().apply {
+        movieGenres.map {
+            append(context.getString(Genre.getByValue(it).genreNameId))
+            if (it != movieGenres.lastIndex) { append(", ") }
+        }
+    }.toString()
 }
 
-private fun nameFormatter(genreCapital: String): String {
-    val genre = genreCapital.lowercase()
-    return  genre.replaceFirstChar { first -> first.uppercase() }
-}

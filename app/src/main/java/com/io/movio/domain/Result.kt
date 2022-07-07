@@ -1,4 +1,4 @@
-package com.io.movio.data
+package com.io.movio.domain
 
 import kotlin.Exception
 

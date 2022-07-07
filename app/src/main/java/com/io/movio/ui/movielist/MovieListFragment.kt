@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.io.movio.R
-import com.io.movio.data.Result
+import com.io.movio.domain.Result
 import com.io.movio.ui.movielist.adapter.MoviesAdapter
 import com.io.movio.databinding.FragmentMovieListBinding
 import com.io.movio.ui.moviedetail.MovieDetailFragment

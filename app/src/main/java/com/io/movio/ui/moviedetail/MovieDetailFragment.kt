@@ -10,12 +10,13 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.io.movio.R
-import com.io.movio.data.Result
+import com.io.movio.domain.Result
 import com.io.movio.databinding.FragmentMovieDetailBinding
-import com.io.movio.data.models.Movie
+import com.io.movio.domain.Movie
 
 // the fragment initialization parameters
 private const val ARG_MOVIE_ID = "movie_id"
+private const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
@@ -42,12 +43,12 @@ class MovieDetailFragment : Fragment() {
     private fun updateMovieDetail(movie: Movie) {
         binding.apply {
             tvTitle.text = movie.title
-            tvAvgRating.text = movie.rating.toString().plus(" out of 10")
+            tvAvgRating.text = requireContext().getString(R.string.rating_out_of_ten , movie.rating)
             tvPopularity.text = movie.popularity.toString()
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
             Glide.with(root)
-                .load("https://image.tmdb.org/t/p/w500".plus(movie.imageUrl))
+                .load(movie.imageUrl)
                 .into(ivPoster)
         }
     }

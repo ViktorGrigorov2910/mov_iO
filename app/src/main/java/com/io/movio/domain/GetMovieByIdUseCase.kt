@@ -1,7 +1,5 @@
 package com.io.movio.domain
 
-import com.io.movio.data.Result
-import com.io.movio.data.models.Movie
 import com.io.movio.data.repositories.MovieRepository
 import kotlin.Exception
 
