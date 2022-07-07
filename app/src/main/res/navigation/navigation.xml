@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/movieSearchFragment">
 
     <fragment
         android:id="@+id/movieListFragment"
@@ -25,5 +25,14 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieSearchFragment"
+        android:name="com.io.movio.ui.moviesearch.MovieSearchFragment"
+        android:label="fragment_movie_search"
+        tools:layout="@layout/fragment_movie_search" >
+        <action
+            android:id="@+id/action_movieSearchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>
