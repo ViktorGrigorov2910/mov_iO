@@ -41,6 +41,6 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     }
 
     override fun onItemClick(id: Int) = Navigation
-        .findNavController(binding.recyclerView)
+        .findNavController(requireView())
         .navigate( MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(id))
 }
