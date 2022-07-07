@@ -2,24 +2,24 @@ package com.io.movio.ui.moviedetail
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.io.movio.R
-import com.io.movio.domain.Result
 import com.io.movio.databinding.FragmentMovieDetailBinding
 import com.io.movio.domain.Movie
+import com.io.movio.domain.Result
 
-// the fragment initialization parameters
-private const val ARG_MOVIE_ID = "movie_id"
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
     private val viewModel: MovieDetailViewModel by lazy { ViewModelProvider(this@MovieDetailFragment)[MovieDetailViewModel::class.java] }
+    private val args: MovieDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovie(requireArguments().getInt(ARG_MOVIE_ID))
+        viewModel.getMovie(args.movieId)
         viewModel.movie.observe(viewLifecycleOwner) {
             when(it){
                 is Result.Success-> updateMovieDetail(it.value)
@@ -52,16 +52,4 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         */
-        fun newInstance(id: Int) =
-            MovieDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_MOVIE_ID, id)
-                }
-            }
-    }
 }

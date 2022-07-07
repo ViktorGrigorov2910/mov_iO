@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.io.movio.R
+import com.io.movio.databinding.FragmentMovieListBinding
 import com.io.movio.domain.Result
 import com.io.movio.ui.movielist.adapter.MoviesAdapter
-import com.io.movio.databinding.FragmentMovieListBinding
-import com.io.movio.ui.moviedetail.MovieDetailFragment
 
 class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
@@ -40,10 +40,7 @@ class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         }
     }
 
-    override fun onItemClick(id: Int) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MovieDetailFragment.newInstance(id))
-            .addToBackStack(javaClass::class.java.name)
-            .commit()
-    }
+    override fun onItemClick(id: Int) = Navigation
+        .findNavController(binding.recyclerView)
+        .navigate( MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(id))
 }
