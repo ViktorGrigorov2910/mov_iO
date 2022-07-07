@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.io.movio.R
 import com.io.movio.databinding.FragmentMovieListBinding
 import com.io.movio.domain.Result
-import com.io.movio.ui.movielist.adapter.MoviesAdapter
+import com.io.movio.ui.adapter.MoviesAdapter
 
 class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 

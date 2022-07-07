@@ -13,6 +13,9 @@ object MovieRepository {
 
     suspend fun getMovieById(id: Int): Movie =
         RetrofitInstance.api.getMovieById(id).movieDetailMapping()
+
+    suspend fun getMoviesBySearch(param: String): List<Movie> =
+        RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
 }
 
 private fun MovieListResource.MovieResource.movieDetailMapping() = Movie(

@@ -1,4 +1,4 @@
-package com.io.movio.ui.movielist.adapter
+package com.io.movio.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
