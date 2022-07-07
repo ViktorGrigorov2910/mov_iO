@@ -16,7 +16,6 @@ import com.io.movio.domain.Movie
 
 // the fragment initialization parameters
 private const val ARG_MOVIE_ID = "movie_id"
-private const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
