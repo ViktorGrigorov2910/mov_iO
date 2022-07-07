@@ -4,6 +4,7 @@ import com.io.movio.common.Constant.BASE_IMAGE_URL
 import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import com.io.movio.network.RetrofitInstance
+import kotlinx.coroutines.delay
 
 
 object MovieRepository {
@@ -14,20 +15,22 @@ object MovieRepository {
     suspend fun getMovieById(id: Int): Movie =
         RetrofitInstance.api.getMovieById(id).movieDetailMapping()
 
-    suspend fun getMoviesBySearch(param: String): List<Movie> =
-        RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
+    suspend fun getMoviesBySearch(param: String): List<Movie> {
+        delay(3000)
+        return RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
+    }
 }
 
 private fun MovieListResource.MovieResource.movieDetailMapping() = Movie(
-        id = id,
-        title = title,
-        imageUrl = "${BASE_IMAGE_URL}${posterPath}",
-        description = overview,
-        releaseDate = releaseDate,
-        genre = genreIds ?: emptyList(),
-        popularity = popularity,
-        rating = voteAverage
-    )
+    id = id,
+    title = title,
+    imageUrl = "${BASE_IMAGE_URL}${posterPath}",
+    description = overview,
+    releaseDate = releaseDate,
+    genre = genreIds ?: emptyList(),
+    popularity = popularity,
+    rating = voteAverage
+)
 
 private fun MovieListResource.movieListMapping() = this.results.map { resource ->
     Movie(

@@ -15,7 +15,7 @@ class MovieSearchViewModel : ViewModel() {
 
     fun getMoviesBySearch(param: String) {
         viewModelScope.launch {
-            //TODO: Change use case to GetMoviesBySearch? !!Default search param = current year!!
+            //TODO: !!Default search param = current year!!
             val result = GetMoviesBySearch().execute(param)
             _movieResultList.value = result
         }

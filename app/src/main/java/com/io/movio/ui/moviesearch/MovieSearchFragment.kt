@@ -38,9 +38,8 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
         binding.edtSearchBar.doAfterTextChanged { text ->
             queryParam = text.toString()
-            //TODO:
-            // fire a new request on every new character ONLY if by 3 seconds no new chars are written
-            // and show the results
+            //TODO: Fire a new request ONLY if by 3 seconds no new chars are written and show the results
+            if(queryParam.isEmpty()) queryParam = "2022"
             if(queryParam.length > 3 )  viewModel.getMoviesBySearch(queryParam)
         }
 
