@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.io.movio.domain.GetMoviesBySearch
+import com.io.movio.domain.GetMoviesBySearchUseCase
 import com.io.movio.domain.Movie
 import com.io.movio.domain.Result
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ class MovieSearchViewModel : ViewModel() {
     fun getMoviesBySearch(param: String) {
         viewModelScope.launch {
             //TODO: !!Default search param = current year!!
-            val result = GetMoviesBySearch().execute(param)
+            val result = GetMoviesBySearchUseCase().execute(param)
             _movieResultList.value = result
         }
     }

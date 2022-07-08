@@ -19,9 +19,6 @@
         android:id="@+id/movieDetailFragment"
         android:name="com.io.movio.ui.moviedetail.MovieDetailFragment"
         android:label="MovieDetailFragment">
-        <action
-            android:id="@+id/action_movieDetailFragment_to_movieListFragment"
-            app:destination="@id/movieListFragment" />
         <argument
             android:name="movie_id"
             app:argType="integer" />

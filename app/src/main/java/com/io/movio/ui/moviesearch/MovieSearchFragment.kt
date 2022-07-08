@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.io.movio.R
@@ -38,19 +39,24 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
         binding.edtSearchBar.doAfterTextChanged { text ->
             queryParam = text.toString()
+            binding.loadingBar.visibility = View.VISIBLE
             //TODO: Fire a new request ONLY if by 3 seconds no new chars are written and show the results
-            if(queryParam.isEmpty()) queryParam = "2022"
-            if(queryParam.length > 3 )  viewModel.getMoviesBySearch(queryParam)
+            if (queryParam.isEmpty()) queryParam = "2022"
+            if (queryParam.length > 3) viewModel.getMoviesBySearch(queryParam)
         }
 
         viewModel.movieResultList.observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Success -> adapter.update(it.value)
-                is Result.Failure -> Toast.makeText(
-                    this.context,
-                    requireContext().getString(R.string.error_message_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
+                is Result.Success -> {
+                    binding.loadingBar.visibility = View.INVISIBLE
+                    adapter.update(it.value)
+                }
+                is Result.Failure -> Toast
+                    .makeText(
+                        this.context,
+                        requireContext().getString(R.string.error_message_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
         }
     }
