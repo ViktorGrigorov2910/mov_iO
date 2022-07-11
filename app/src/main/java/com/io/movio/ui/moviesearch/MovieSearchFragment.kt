@@ -1,6 +1,7 @@
 package com.io.movio.ui.moviesearch
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import com.io.movio.R
 import com.io.movio.databinding.FragmentMovieSearchBinding
 import com.io.movio.domain.Result
 import com.io.movio.ui.adapter.MoviesAdapter
+import okhttp3.internal.wait
+import java.sql.Time
 import java.time.Year
 import java.util.*
 import kotlin.concurrent.schedule
@@ -22,8 +25,8 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     private lateinit var binding: FragmentMovieSearchBinding
     private val viewModel: MovieSearchViewModel by lazy { ViewModelProvider(this@MovieSearchFragment)[MovieSearchViewModel::class.java] }
     private var adapter = MoviesAdapter(this)
-    private var timer = Timer()
     private var queryParam = ""
+    private var timer = Timer()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,15 +49,16 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
         }
 
         binding.edtSearchBar.doAfterTextChanged { text ->
-            timer.cancel()
             queryParam = text.toString()
+            timer.cancel()
 
             if (queryParam.isEmpty()) {
-                queryParam = Year.now().toString()
-                viewModel.getMoviesBySearch(queryParam)
+                    queryParam = Year.now().toString()
+                    viewModel.getMoviesBySearch(queryParam)
             } else {
                 if (queryParam.length > 2) {
-                    Timer().schedule(3000) {
+                    timer = Timer()
+                        timer.schedule(3000) {
                         viewModel.getMoviesBySearch(queryParam)
                     }
                 }
