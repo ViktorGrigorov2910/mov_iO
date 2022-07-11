@@ -13,9 +13,11 @@ class MovieSearchViewModel : ViewModel() {
     private val _movieResultList = MutableLiveData<Result<List<Movie>>>()
     val movieResultList: LiveData<Result<List<Movie>>> = _movieResultList
 
+
     fun getMoviesBySearch(param: String) {
         viewModelScope.launch {
-            //TODO: !!Default search param = current year!!
+            _movieResultList.value = Result.IsLoading()
+
             val result = GetMoviesBySearchUseCase().execute(param)
             _movieResultList.value = result
         }

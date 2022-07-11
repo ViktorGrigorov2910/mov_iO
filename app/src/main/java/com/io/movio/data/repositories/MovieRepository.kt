@@ -4,7 +4,7 @@ import com.io.movio.common.Constant.BASE_IMAGE_URL
 import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import com.io.movio.network.RetrofitInstance
-import kotlinx.coroutines.delay
+import java.time.Year
 
 
 object MovieRepository {
@@ -16,32 +16,32 @@ object MovieRepository {
         RetrofitInstance.api.getMovieById(id).movieDetailMapping()
 
     suspend fun getMoviesBySearch(param: String): List<Movie> {
-        delay(4000)
-        return if(param == "2022"){
-            RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
+        return if(param == Year.now().toString()){
+            RetrofitInstance.api.getMoviesBySearch(param).movieListMappingByCurrentYear()
         }else {
             RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
         }
     }
 }
 
-//private fun MovieListResource.movieListMappingByCurrentYear():List<Movie> {
-//    var filteredMovieList = this.results.map { resource ->
-//        if (resource.releaseDate.contains("2022")) {
-//            Movie(
-//                id = resource.id,
-//                title = resource.title,
-//                imageUrl = "${BASE_IMAGE_URL}${resource.posterPath}",
-//                description = resource.overview,
-//                releaseDate = resource.releaseDate,
-//                genre = resource.genreIds ?: emptyList(),
-//                popularity = resource.popularity,
-//                rating = resource.voteAverage
-//            )
-//        }
-//    }
-//    return filteredMovieList
-//}
+
+private fun MovieListResource.movieListMappingByCurrentYear():List<Movie> {
+   return this.results.filter {
+     it.releaseDate.contains( Year.now().toString())
+    }.map {
+        resource ->
+      Movie(
+          id = resource.id,
+          title = resource.title,
+          imageUrl = "${BASE_IMAGE_URL}${resource.posterPath}",
+          description = resource.overview,
+          releaseDate = resource.releaseDate,
+          genre = resource.genreIds ?: emptyList(),
+          popularity = resource.popularity,
+          rating = resource.voteAverage
+      )
+    }
+}
 
 
 private fun MovieListResource.MovieResource.movieDetailMapping() = Movie(

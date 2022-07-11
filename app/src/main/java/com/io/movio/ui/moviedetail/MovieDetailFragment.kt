@@ -33,7 +33,11 @@ class MovieDetailFragment : Fragment() {
         viewModel.getMovie(args.movieId)
         viewModel.movie.observe(viewLifecycleOwner) {
             when(it){
-                is Result.Success-> updateMovieDetail(it.value)
+                is Result.IsLoading -> binding.loadingBar.visibility = View.VISIBLE
+                is Result.Success->{
+                    binding.loadingBar.visibility = View.INVISIBLE
+                    updateMovieDetail(it.value)
+                }
                 is Result.Failure -> Toast.makeText(this.context , requireContext().getString(R.string.error_message_toast) , Toast.LENGTH_SHORT).show()
             }
         }
