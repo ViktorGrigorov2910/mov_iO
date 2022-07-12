@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_teal"
+    android:background="@color/white"
     android:padding="16dp"
     tools:context="ui.moviedetail.MovieDetailFragment">
 
@@ -25,8 +25,6 @@
         android:id="@+id/loading_bar"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:background="@color/grey"
-        android:elevation="20dp"
         android:indeterminateTint="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,12 +115,12 @@
         android:id="@+id/tv_description_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:text="@string/description_header"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="50sp"
+        android:textSize="35sp"
         android:textStyle="bold"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/tv_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

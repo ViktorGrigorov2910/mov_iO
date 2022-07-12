@@ -4,10 +4,10 @@ import com.io.movio.common.Constant.BASE_IMAGE_URL
 import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import com.io.movio.network.RetrofitInstance
-import java.time.Year
-
 
 object MovieRepository {
+
+    private val moviesByDate: MutableMap<Int, List<Movie>> = mutableMapOf()
 
     suspend fun getMovies(): List<Movie> =
         RetrofitInstance.api.getMovies().movieListMapping()
@@ -15,40 +15,24 @@ object MovieRepository {
     suspend fun getMovieById(id: Int): Movie =
         RetrofitInstance.api.getMovieById(id).movieDetailMapping()
 
-    suspend fun getMoviesBySearch(param: String): List<Movie> {
-        return if(param == Year.now().toString()){
-            RetrofitInstance.api.getMoviesBySearch(param).movieListMappingByCurrentYear()
-        }else {
-            RetrofitInstance.api.getMoviesBySearch(param).movieListMapping()
+    suspend fun searchMoviesByYear(releaseDate: Int): List<Movie> =
+        if (moviesByDate.containsKey(releaseDate)) {
+            moviesByDate.getValue(releaseDate)
+        } else {
+            val movies = RetrofitInstance.api.getMoviesBySearch(releaseDate = releaseDate).movieListMapping()
+            moviesByDate[releaseDate] = movies
+            movies
         }
-    }
+
+    suspend fun searchMoviesByQuery(query: String): List<Movie> =
+        RetrofitInstance.api.getMoviesBySearch(input = query).movieListMapping()
 }
-
-
-private fun MovieListResource.movieListMappingByCurrentYear():List<Movie> {
-   return this.results.filter {
-     it.releaseDate.contains( Year.now().toString())
-    }.map {
-        resource ->
-      Movie(
-          id = resource.id,
-          title = resource.title,
-          imageUrl = "${BASE_IMAGE_URL}${resource.posterPath}",
-          description = resource.overview,
-          releaseDate = resource.releaseDate,
-          genre = resource.genreIds ?: emptyList(),
-          popularity = resource.popularity,
-          rating = resource.voteAverage
-      )
-    }
-}
-
 
 private fun MovieListResource.MovieResource.movieDetailMapping() = Movie(
     id = id,
     title = title,
     imageUrl = "${BASE_IMAGE_URL}${posterPath}",
-    description = if(overview == "")"N/A" else overview,
+    description = overview.ifEmpty { "N/A" },
     releaseDate = releaseDate,
     genre = genreIds ?: emptyList(),
     popularity = popularity,

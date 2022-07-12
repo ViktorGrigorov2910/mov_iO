@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.io.movio.R
+import com.io.movio.common.Constant
 import com.io.movio.databinding.FragmentMovieDetailBinding
 import com.io.movio.domain.Movie
 import com.io.movio.domain.Result
-
 
 class MovieDetailFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailBinding
@@ -30,15 +30,17 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getMovie(args.movieId)
         viewModel.movie.observe(viewLifecycleOwner) {
             when(it){
-                is Result.IsLoading -> binding.loadingBar.visibility = View.VISIBLE
+                is Result.Loading -> binding.loadingBar.visibility =  View.VISIBLE
                 is Result.Success->{
                     binding.loadingBar.visibility = View.INVISIBLE
-                    updateMovieDetail(it.value)
+                    updateMovieDetail(it.value) }
+                is Result.Failure ->{
+                    Toast.makeText(requireContext() , requireContext().getString(R.string.error_message_toast) , Toast.LENGTH_SHORT).show()
                 }
-                is Result.Failure -> Toast.makeText(this.context , requireContext().getString(R.string.error_message_toast) , Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,9 +52,15 @@ class MovieDetailFragment : Fragment() {
             tvPopularity.text = movie.popularity.toString()
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
-            Glide.with(root)
-                .load(movie.imageUrl)
-                .into(ivPoster)
+            if (movie.imageUrl == Constant.IMAGE_NOT_FOUND_URL){
+                Glide.with(root)
+                    .load(R.drawable.ic_default_picture_not_found)
+                    .into(ivPoster)
+            }else{
+                Glide.with(root)
+                    .load(movie.imageUrl)
+                    .into(ivPoster)
+            }
         }
     }
 

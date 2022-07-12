@@ -5,14 +5,19 @@ import com.io.movio.data.resources.MovieListResource
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.time.Year
+import java.util.*
 
-interface MovieApi  {
+interface MovieApi {
     @GET("movie/top_rated?api_key=${Constant.API_KEY}")
-    suspend fun getMovies( ): MovieListResource
+    suspend fun getMovies(): MovieListResource
 
     @GET("movie/{movie_id}?api_key=${Constant.API_KEY}")
-    suspend fun getMovieById(@Path("movie_id") id: Int ): MovieListResource.MovieResource
+    suspend fun getMovieById(@Path("movie_id") id: Int): MovieListResource.MovieResource
 
     @GET("search/movie?api_key=${Constant.API_KEY}")
-    suspend fun getMoviesBySearch(@Query("query") input:String ):MovieListResource
+    suspend fun getMoviesBySearch(
+        @Query("query") input: String? = "%20",
+        @Query("primary_release_year") releaseDate: Int? = null
+    ): MovieListResource
 }
