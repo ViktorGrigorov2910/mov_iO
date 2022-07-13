@@ -24,7 +24,11 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_movieDetailFragment_to_movieSearchFragment"
-            app:destination="@id/movieSearchFragment" />
+            app:destination="@id/movieSearchFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/movieSearchFragment"
@@ -33,6 +37,10 @@
         tools:layout="@layout/fragment_movie_search" >
         <action
             android:id="@+id/action_movieSearchFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>
