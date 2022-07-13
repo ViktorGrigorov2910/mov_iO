@@ -5,6 +5,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -53,9 +54,9 @@ class MovieDetailFragment : Fragment() {
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
             if (movie.imageUrl == Constant.IMAGE_NOT_FOUND_URL){
-                Glide.with(root)
-                    .load(R.drawable.ic_default_picture_not_found)
-                    .into(ivPoster)
+                binding.apply {
+                    ivPoster.setImageResource(R.drawable.ic_not_found)
+                }
             }else{
                 Glide.with(root)
                     .load(movie.imageUrl)

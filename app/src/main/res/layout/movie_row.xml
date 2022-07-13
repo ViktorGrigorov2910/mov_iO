@@ -20,8 +20,10 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -37,7 +39,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:text="@string/genre_header"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -50,6 +52,8 @@
 
     <TextView
         android:id="@+id/tv_genre"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -75,7 +79,7 @@
         android:id="@+id/tv_release_date_header"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:text="@string/released_header"
         android:textAlignment="center"
         android:textColor="@color/black"
