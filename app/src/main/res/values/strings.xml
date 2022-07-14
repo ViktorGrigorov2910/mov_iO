@@ -28,4 +28,5 @@
     <string name="genre_war">War</string>
     <string name="genre_western">Western</string>
     <string name="rating_out_of_ten">%.2f out of 10</string>
+    <string name="search">Type to Search</string>
 </resources>

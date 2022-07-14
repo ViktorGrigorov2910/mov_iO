@@ -15,6 +15,8 @@ class MovieDetailViewModel : ViewModel() {
 
     fun getMovie(id: Int) {
         viewModelScope.launch {
+            _movie.value = Result.Loading
+
             val result = GetMovieByIdUseCase().execute(id)
             _movie.value = result
         }

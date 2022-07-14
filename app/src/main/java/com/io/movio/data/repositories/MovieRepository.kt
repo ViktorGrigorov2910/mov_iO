@@ -5,26 +5,39 @@ import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import com.io.movio.network.RetrofitInstance
 
-
 object MovieRepository {
+
+    private val moviesByDate: MutableMap<Int, List<Movie>> = mutableMapOf()
 
     suspend fun getMovies(): List<Movie> =
         RetrofitInstance.api.getMovies().movieListMapping()
 
     suspend fun getMovieById(id: Int): Movie =
         RetrofitInstance.api.getMovieById(id).movieDetailMapping()
+
+    suspend fun searchMoviesByYear(releaseDate: Int): List<Movie> =
+        if (moviesByDate.containsKey(releaseDate)) {
+            moviesByDate.getValue(releaseDate)
+        } else {
+            val movies = RetrofitInstance.api.getMoviesBySearch(releaseDate = releaseDate).movieListMapping()
+            moviesByDate[releaseDate] = movies
+            movies
+        }
+
+    suspend fun searchMoviesByQuery(query: String): List<Movie> =
+        RetrofitInstance.api.getMoviesBySearch(input = query).movieListMapping()
 }
 
 private fun MovieListResource.MovieResource.movieDetailMapping() = Movie(
-        id = id,
-        title = title,
-        imageUrl = "${BASE_IMAGE_URL}${posterPath}",
-        description = overview,
-        releaseDate = releaseDate,
-        genre = genreIds ?: emptyList(),
-        popularity = popularity,
-        rating = voteAverage
-    )
+    id = id,
+    title = title,
+    imageUrl = "${BASE_IMAGE_URL}${posterPath}",
+    description = overview.ifEmpty { "N/A" },
+    releaseDate = releaseDate,
+    genre = genreIds ?: emptyList(),
+    popularity = popularity,
+    rating = voteAverage
+)
 
 private fun MovieListResource.movieListMapping() = this.results.map { resource ->
     Movie(

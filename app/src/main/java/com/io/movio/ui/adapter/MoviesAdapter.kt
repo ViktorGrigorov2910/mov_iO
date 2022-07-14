@@ -1,14 +1,16 @@
-package com.io.movio.ui.movielist.adapter
+package com.io.movio.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.io.movio.R
+import com.io.movio.common.Constant
 import com.io.movio.data.enums.Genre
 import com.io.movio.databinding.MovieRowBinding
 import com.io.movio.domain.Movie
-
 
 class MoviesAdapter(private val listener: ItemOnClickListener) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
@@ -23,12 +25,22 @@ class MoviesAdapter(private val listener: ItemOnClickListener) :
 
         holder.apply {
             binding.tvTitle.text = movie.title
-            binding.tvGenre.text = getGenreToString(movie.genre, binding.root.context)
+            if (movie.genre.isEmpty()) {
+                binding.tvGenre.text = "N/A"
+            } else {
+                binding.tvGenre.text = getGenreToString(movie.genre, binding.root.context)
+            }
             binding.tvReleaseDate.text = movie.releaseDate
 
-            Glide.with(this.binding.root)
-                .load(movie.imageUrl)
-                .into(binding.imageView)
+            if (movie.imageUrl == Constant.IMAGE_NOT_FOUND_URL){
+                binding.apply {
+                    imageView.setImageResource(R.drawable.ic_not_found)
+                }
+            }else{
+                Glide.with(this.binding.root)
+                    .load(movie.imageUrl)
+                    .into(binding.imageView)
+            }
 
             itemView.setOnClickListener {
                 listener.onItemClick(movie.id)
@@ -55,8 +67,10 @@ class MoviesAdapter(private val listener: ItemOnClickListener) :
 private fun getGenreToString(movieGenres: List<Int>, context: Context): String {
     return StringBuilder().apply {
         movieGenres.map {
+            if (it != movieGenres.lastIndex && it != movieGenres.first()) {
+                append(", ")
+            }
             append(context.getString(Genre.getByValue(it).genreNameId))
-            if (it != movieGenres.lastIndex) { append(", ") }
         }
     }.toString()
 }
