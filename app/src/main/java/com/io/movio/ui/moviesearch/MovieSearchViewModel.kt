@@ -4,14 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.io.movio.data.repositories.MovieRepository
 import com.io.movio.domain.Movie
 import com.io.movio.domain.Result
 import com.io.movio.domain.SearchMoviesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val SEARCH_PARAM_MIN_LENGTH = 2
-
-class MovieSearchViewModel : ViewModel() {
+@HiltViewModel
+class MovieSearchViewModel@Inject constructor(private val movieRepository: MovieRepository): ViewModel() {
 
     private val _movieResultList = MutableLiveData<Result<List<Movie>>>()
     val movieResultList: LiveData<Result<List<Movie>>> = _movieResultList
@@ -31,7 +34,7 @@ class MovieSearchViewModel : ViewModel() {
         viewModelScope.launch {
             _movieResultList.value = Result.Loading
 
-            val result = SearchMoviesUseCase().execute(SearchMoviesUseCase.Params())
+            val result = SearchMoviesUseCase(movieRepository).execute(SearchMoviesUseCase.Params())
             _movieResultList.value = result
         }
     }
@@ -44,7 +47,7 @@ class MovieSearchViewModel : ViewModel() {
             _movieResultList.value = Result.Loading
 
             val queryParams = SearchMoviesUseCase.Params(null, param)
-            val result = SearchMoviesUseCase().execute(queryParams)
+            val result = SearchMoviesUseCase(movieRepository).execute(queryParams)
             _movieResultList.value = result
         }
     }

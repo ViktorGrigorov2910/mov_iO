@@ -4,8 +4,11 @@ import com.io.movio.common.Constant.BASE_IMAGE_URL
 import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import com.io.movio.network.RetrofitInstance
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object MovieRepository {
+@Singleton
+object MovieRepository{
 
     private val moviesByDate: MutableMap<Int, List<Movie>> = mutableMapOf()
 
