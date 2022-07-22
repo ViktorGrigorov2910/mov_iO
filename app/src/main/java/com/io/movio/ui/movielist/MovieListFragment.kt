@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.io.movio.R
 import com.io.movio.databinding.FragmentMovieListBinding
@@ -16,7 +16,7 @@ import com.io.movio.ui.adapter.MoviesAdapter
 class MovieListFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
 
     private lateinit var binding: FragmentMovieListBinding
-    private val viewModel: MovieListViewModel by lazy {  ViewModelProvider(this@MovieListFragment)[MovieListViewModel::class.java] }
+    private val viewModel: MovieListViewModel by viewModels()
     private var adapter = MoviesAdapter(this)
 
     override fun onCreateView(

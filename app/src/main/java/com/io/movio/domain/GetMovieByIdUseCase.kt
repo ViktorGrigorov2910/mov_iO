@@ -1,9 +1,10 @@
 package com.io.movio.domain
 
 import com.io.movio.data.repositories.MovieRepository
-import kotlin.Exception
+import javax.inject.Inject
 
-class GetMovieByIdUseCase(private val movieRepository: MovieRepository = MovieRepository): UseCase<Int , Result<Movie>>{
+
+class GetMovieByIdUseCase @Inject constructor(private val movieRepository: MovieRepository): UseCase<Int , Result<Movie>>{
     override suspend fun execute(id: Int): Result<Movie> {
         return try {
             Result.Success(movieRepository.getMovieById(id))

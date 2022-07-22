@@ -3,7 +3,6 @@ package com.io.movio.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.io.movio.R
@@ -33,9 +32,7 @@ class MoviesAdapter(private val listener: ItemOnClickListener) :
             binding.tvReleaseDate.text = movie.releaseDate
 
             if (movie.imageUrl == Constant.IMAGE_NOT_FOUND_URL){
-                binding.apply {
-                    imageView.setImageResource(R.drawable.ic_not_found)
-                }
+                binding.imageView.setImageResource(R.drawable.ic_not_found)
             }else{
                 Glide.with(this.binding.root)
                     .load(movie.imageUrl)

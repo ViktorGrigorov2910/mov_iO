@@ -7,20 +7,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.io.movio.R
 import com.io.movio.common.Constant.DELAY_FOR_SEARCH
 import com.io.movio.databinding.FragmentMovieSearchBinding
 import com.io.movio.domain.Result
 import com.io.movio.ui.adapter.MoviesAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import kotlin.concurrent.schedule
 
-class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
+@AndroidEntryPoint
+class MovieSearchFragment: Fragment(), MoviesAdapter.ItemOnClickListener {
 
     private lateinit var binding: FragmentMovieSearchBinding
-    private val viewModel: MovieSearchViewModel by lazy { ViewModelProvider(this@MovieSearchFragment)[MovieSearchViewModel::class.java] }
+    private val viewModel: MovieSearchViewModel by viewModels()
     private var adapter = MoviesAdapter(this)
     private var timer = Timer()
 
@@ -73,7 +75,6 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     }
 
     override fun onItemClick(id: Int) = Navigation
-        .findNavController(requireView())
-        .navigate(MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(id))
+        .findNavController(requireView()).navigate(MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(id))
 }
 

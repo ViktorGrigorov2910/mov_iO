@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.io.movio.domain.Result
 import com.io.movio.domain.Movie
 import com.io.movio.domain.GetMovieByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailViewModel : ViewModel() {
+@HiltViewModel
+class MovieDetailViewModel@Inject constructor(private val useCase: GetMovieByIdUseCase) : ViewModel() {
     private val _movie = MutableLiveData<Result<Movie>>()
     val movie: LiveData<Result<Movie>> = _movie
 
@@ -17,7 +20,7 @@ class MovieDetailViewModel : ViewModel() {
         viewModelScope.launch {
             _movie.value = Result.Loading
 
-            val result = GetMovieByIdUseCase().execute(id)
+            val result = useCase.execute(id)
             _movie.value = result
         }
     }
