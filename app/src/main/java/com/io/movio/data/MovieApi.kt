@@ -5,8 +5,6 @@ import com.io.movio.data.resources.MovieListResource
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.time.Year
-import java.util.*
 
 interface MovieApi {
     @GET("movie/top_rated?api_key=${Constant.API_KEY}")

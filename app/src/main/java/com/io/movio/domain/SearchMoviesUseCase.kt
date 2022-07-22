@@ -1,11 +1,12 @@
 package com.io.movio.domain
 
-import com.io.movio.data.repositories.MovieRepository
+import android.util.Log
+import com.io.movio.data.repositories.MovieRepositoryImpl
 import java.util.*
 import javax.inject.Inject
 
 
-class SearchMoviesUseCase@Inject constructor(private val movieRepository: MovieRepository ): UseCase<SearchMoviesUseCase.Params, Result<List<Movie>>> {
+class SearchMoviesUseCase@Inject constructor(private val movieRepository: MovieRepositoryImpl ): UseCase<SearchMoviesUseCase.Params, Result<List<Movie>>> {
 
     override suspend fun execute(param: Params): Result<List<Movie>> {
         return try{
@@ -15,6 +16,7 @@ class SearchMoviesUseCase@Inject constructor(private val movieRepository: MovieR
                 Result.Success(movieRepository.searchMoviesByQuery(param.queryString))
             }
         } catch (e: Exception) {
+            Log.i("HiltTracker" , e.toString())
             Result.Failure(e)
         }
     }

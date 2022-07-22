@@ -19,7 +19,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
-class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
+class MovieSearchFragment: Fragment(), MoviesAdapter.ItemOnClickListener {
 
     private lateinit var binding: FragmentMovieSearchBinding
     private val viewModel: MovieSearchViewModel by viewModels()
@@ -75,7 +75,6 @@ class MovieSearchFragment : Fragment(), MoviesAdapter.ItemOnClickListener {
     }
 
     override fun onItemClick(id: Int) = Navigation
-        .findNavController(requireView())
-        .navigate(MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(id))
+        .findNavController(requireView()).navigate(MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(id))
 }
 

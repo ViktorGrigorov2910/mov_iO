@@ -55,9 +55,7 @@ class MovieDetailFragment : Fragment() {
             tvDescription.text = movie.description
             tvDescription.movementMethod = ScrollingMovementMethod()
             if (movie.imageUrl == Constant.IMAGE_NOT_FOUND_URL){
-                binding.apply {
-                    ivPoster.setImageResource(R.drawable.ic_not_found)
-                }
+                binding.ivPoster.setImageResource(R.drawable.ic_not_found)
             }else{
                 Glide.with(root)
                     .load(movie.imageUrl)
