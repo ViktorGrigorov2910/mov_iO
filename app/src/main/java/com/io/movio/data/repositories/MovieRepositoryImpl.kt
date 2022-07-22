@@ -5,9 +5,7 @@ import com.io.movio.data.MovieApi
 import com.io.movio.domain.Movie
 import com.io.movio.data.resources.MovieListResource
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class MovieRepositoryImpl @Inject constructor(private val api: MovieApi) : MovieRepository {
     private val moviesByDate: MutableMap<Int, List<Movie>> = mutableMapOf()
 
